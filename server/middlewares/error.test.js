@@ -38,12 +38,14 @@ describe("Given a genralError function", () => {
       expect(res.status).toHaveBeenCalledWith(expectedStatus);
     });
 
-    test("Then it should call the response msg method with 'Internal server error'", () => {
-      const expectedMsg = { msg: "404 endpoint Not Found" || "general error" };
+    test("Then it should call the response json method with the current error msg", () => {
+      const expectedMsg1 = { msg: "404 endpoint Not Found" };
+      const expectedMsg2 = { msg: "general error" };
 
       generalError(error, null, res);
 
-      expect(res.json).toHaveBeenCalledWith(expectedMsg);
+      expect(res.json).toHaveBeenCalledWith(expectedMsg1);
+      expect(res.json).toHaveBeenCalledWith(expectedMsg2);
     });
   });
 });

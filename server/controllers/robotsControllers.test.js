@@ -46,12 +46,12 @@ describe("Given a deleteRobot function", () => {
       expect(res.status).toBeCalledWith(expectedResult);
     });
 
-    test("Then it should call the response json method with a msg 'robot deleted'", async () => {
-      const expectedMesage = "robot deleted";
-
+    test("Then it should call the response json method with a msg saying that a robot with the passed Id has been deleted", async () => {
       await deleteRobot(req, res);
 
-      expect(res.json).toBeCalledWith({ msg: expectedMesage });
+      expect(res.json).toBeCalledWith({
+        msg: `deleted robot with id: ${req.params.idRobot}`,
+      });
     });
   });
 });
