@@ -39,7 +39,7 @@ describe("Given a genralError function", () => {
     });
 
     test("Then it should call the response msg method with 'Internal server error'", () => {
-      const expectedMsg = { msg: "Internal server error" };
+      const expectedMsg = { msg: "404 endpoint Not Found" || "general error" };
 
       generalError(error, null, res);
 
