@@ -25,27 +25,36 @@ describe("Given a notFoundError function", () => {
 });
 
 describe("Given a genralError function", () => {
-  const error = {
-    message: "error text",
-  };
-
-  describe("When it's invoked with a response", () => {
-    test("Then it should call the response status method with 500", () => {
-      const expectedStatus = 500;
+  describe("When it's invoked with a response and a 401 error and a error message 'general error'", () => {
+    test("Then it should call the response status method with 401 and the json method with the passed error msg", () => {
+      const expectedStatus = 401;
+      const expectedJsonMessage = { msg: "general error" };
+      const error = {
+        statusCode: 401,
+        message: "general error",
+      };
 
       generalError(error, null, res);
 
       expect(res.status).toHaveBeenCalledWith(expectedStatus);
+      expect(res.json).toHaveBeenCalledWith(expectedJsonMessage);
     });
+    describe("When it's invoked with a response and a 500 error and a error message 'Internal server error'", () => {
+      test("Then it should call the response status method with 500 and the json method with the passed error msg", () => {
+        const expectedStatus = 500;
 
-    test("Then it should call the response json method with the current error msg", () => {
-      const expectedMsg1 = { msg: "404 endpoint Not Found" };
-      const expectedMsg2 = { msg: "general error" };
+        const error = {
+          statusCode: 500,
+          message: "Internal server error",
+        };
 
-      generalError(error, null, res);
+        const expectedJsonMessage = { msg: "Internal server error" };
 
-      expect(res.json).toHaveBeenCalledWith(expectedMsg1);
-      expect(res.json).toHaveBeenCalledWith(expectedMsg2);
+        generalError(error, null, res);
+
+        expect(res.status).toHaveBeenCalledWith(expectedStatus);
+        expect(res.json).toHaveBeenCalledWith(expectedJsonMessage);
+      });
     });
   });
 });
