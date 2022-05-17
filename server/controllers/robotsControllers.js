@@ -1,4 +1,4 @@
-const debug = require("debug")("robots:controllers");
+const debug = require("debug")("robots:robots-controllers");
 const chalk = require("chalk");
 
 const Robot = require("../../database/models/Robot");
